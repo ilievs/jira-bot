@@ -4,7 +4,7 @@ from argparse import ArgumentDefaultsHelpFormatter
 
 import logger
 
-from command.export.issues.attachments import AttachmentsMockCommandHandler
+from command.attachments import AttachmentsMockCommandHandler
 
 
 class Application:
@@ -14,20 +14,15 @@ class Application:
         parser = argparse.ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
         subparsers = parser.add_subparsers(title='subcommands', description='Choose a command')
 
-        # export subcommand
-        export_parser = subparsers.add_parser('export', help='Use a subcommand')
-        export_subparser = export_parser.add_subparsers()
-
-        # issues subcommand
-        issues_parser = export_subparser.add_parser('issues')
-        issues_subparser = issues_parser.add_subparsers()
-
         # attachments subcommand
-        attachment_parser = issues_subparser.add_parser('attachments')
+        attachment_parser = subparsers.add_parser('attachments', help='Use a subcommand')
         attachment_subparsers = attachment_parser.add_subparsers()
 
-        # mock subcommand
-        mock_parser = attachment_subparsers.add_parser('mock', formatter_class=ArgumentDefaultsHelpFormatter)
+        # attachments mock subcommand
+        mock_parser = attachment_subparsers.add_parser('mock',
+                                                       help='Creates a directory with mocked issue folders '
+                                                            'and attachments in them',
+                                                       formatter_class=ArgumentDefaultsHelpFormatter)
         mock_parser.add_argument('--project_key', help='the project key', default='ABC')
         mock_parser.add_argument('--num_issues', help='the number of issue folders to create', default=10)
         mock_parser.add_argument('--num_attachments_per_issue',

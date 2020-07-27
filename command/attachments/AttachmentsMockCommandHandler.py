@@ -1,4 +1,4 @@
-from export.issues.attachments import mock_dir
+from attachments.mock import mock_dir
 
 
 class AttachmentsMockCommandHandler:

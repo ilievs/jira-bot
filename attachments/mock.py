@@ -1,34 +1,8 @@
-import os
-from datetime import datetime, timezone, tzinfo, timedelta
+from datetime import timezone, timedelta
 from random import randint
 
-current_year = datetime.now().year
-
-
-def get_random_date_underscored(date_timezone: tzinfo = None):
-    return datetime(year=randint(2005, current_year),
-                    month=randint(1, 12),
-                    day=randint(1, 28),
-                    tzinfo=date_timezone)\
-        .strftime('%Y_%m_%d')
-
-
-def get_random_date_iso(date_timezone=None):
-
-    return datetime(year=randint(2005, current_year),
-                    month=randint(1, 12),
-                    day=randint(1, 28),
-                    tzinfo=date_timezone)\
-        .isoformat()
-
-
-def mkdir_if_not_exists(path):
-    try:
-        # create the directory if it doesn't already exist
-        os.mkdir(path)
-    except FileExistsError:
-        # ignore the error, this means the path exists
-        pass
+from util.fs import mkdir_if_not_exists
+from util.rand import get_random_date_underscored, get_random_date_iso
 
 
 def mock_dir(path, project_key='ABC', num_issues=10, num_attachments_per_issue=2,
@@ -71,3 +45,4 @@ def mock_dir(path, project_key='ABC', num_issues=10, num_attachments_per_issue=2
                 attachment_id += 1
 
             issue_id += 1
+
