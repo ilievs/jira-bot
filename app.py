@@ -57,7 +57,7 @@ class Application:
         try:
             args.exec(args)
         except AttributeError:
-            logger.info('Please, choose a command or chain of subcommands. Use -h or --help for more details')
+            parser.print_help()
 
 
 if __name__ == '__main__':

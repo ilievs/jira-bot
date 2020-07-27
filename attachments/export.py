@@ -1,3 +1,4 @@
+import csv
 import os
 import shutil
 
@@ -5,19 +6,18 @@ import logger
 from util.fs import mkdir_if_not_exists
 
 
-def get_mapping_fileattachment_export_csv(fileattachment_table_csv_export_file, fileattachment_csv_separator):
+def get_mapping_fileattachment_export_csv(fileattachment_table_csv_export_file, csv_separator):
     attachments_mapping = {}
     with open(fileattachment_table_csv_export_file) as f:
         line_num = 1
-        for line in f:
-            parts = line.split(fileattachment_csv_separator)
-            if len(parts) != 9:
+        for row in csv.reader(f, delimiter=csv_separator):
+            if len(row) != 9:
                 raise ValueError(f'Line {line_num} in the fileattachment csv export file '
                                  f'{fileattachment_table_csv_export_file} is corrupt or '
                                  f'is exported from an unsupported Jira version')
 
-            attachment_id = parts[0]
-            attachment_file_name = parts[3]
+            attachment_id = row[0]
+            attachment_file_name = row[3]
             attachments_mapping[attachment_id] = attachment_file_name
 
             line_num += 1
