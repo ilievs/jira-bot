@@ -1,1 +1,2 @@
 from command.attachments.AttachmentsMockCommandHandler import AttachmentsMockCommandHandler
+from command.attachments.ExportAttachments import ExportAttachments

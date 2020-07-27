@@ -22,3 +22,7 @@ _logger.addHandler(_file_handler)
 
 def info(message, *args, **kwargs):
     _logger.info(message, *args, **kwargs)
+
+
+def warning(message, *args, **kwargs):
+    _logger.warning(message, *args, **kwargs)
