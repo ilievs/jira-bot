@@ -32,7 +32,10 @@ def export_issue(issue_attachments_path, target_path, attachments_mapping, filea
             if attachment_file_name in attachments_mapping:
                 new_attachment_file_name = attachments_mapping[attachment_file_name]
                 new_file_path = f'{target_path}/{new_attachment_file_name}'
-                shutil.copyfile(attachment_file, new_file_path)
+                try:
+                    shutil.copyfile(attachment_file, new_file_path)
+                except FileNotFoundError:
+                    logger.warning(f'Attachment {attachment_file} in issue path {issue_attachments_path} not found')
             else:
                 logger.warning(f'attachment {attachment_file} does not contain a mapping in '
                                f'{fileattachment_table_csv_export_file}')
